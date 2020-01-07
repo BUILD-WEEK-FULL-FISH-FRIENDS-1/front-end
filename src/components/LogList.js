@@ -1,6 +1,5 @@
 import React from "react"
 import LogCard from "./LogCard.js"
-import Axios from "axios"
 
 export default function LogList(props) {
   return (

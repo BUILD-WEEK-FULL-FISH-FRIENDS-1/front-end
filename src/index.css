@@ -4,7 +4,7 @@ main {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .jumbo-land {
@@ -19,8 +19,22 @@ div .jumbotron {
   color: white;
 }
 
-/* .supForm {
+.mode {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  padding-top: 5%;
+  padding-bottom: 2%;
+}
+
+.log-car {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
-} */
+  padding-bottom: 3%;
+}
+
+.card {
+  margin-top: 3%;
+  width: 66%;
+}
