@@ -10,10 +10,17 @@ main {
 .jumbo-land {
   display: flex;
   justify-content: center;
-  margin-top: 10%;
+  align-content: center;
+  padding-top: 25%;
 }
 
 div .jumbotron {
   background-color: slategray;
   color: white;
 }
+
+/* .supForm {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+} */
