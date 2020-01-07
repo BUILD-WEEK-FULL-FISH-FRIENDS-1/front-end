@@ -13,10 +13,12 @@ export default function SignInForm() {
         <p>username</p>
         <input name="username" ref={register} />
       </label>
+      <br />
       <label htmlFor="password">
         <p>password</p>
         <input type="password" name="password" ref={register} />
       </label>
+      <br />
       <button type="submit">Sign In</button>
     </form>
 

@@ -7,7 +7,6 @@ import {
   ModalBody,
   ModalFooter
 } from "reactstrap"
-import NavBar from "./NavBar.js"
 import SignUpForm from "./SignUpForm.js"
 import SignInForm from "./SignInForm.js"
 
@@ -23,66 +22,63 @@ export default function Landing(props) {
   const toggleSignIn = () => setSignInModal(!signInModal)
 
   return (
-    <div>
-      <NavBar />
-      <div className="jumbo-land">
-        <Jumbotron color="dark">
-          <h1 className="display-3">Welcome to Fish Friends!</h1>
-          <p className="lead">
-            If this is your first time visiting us we encourage you to sign up
-            to get the full experience.
-          </p>
-          <p className="lead">
-            <Button color="success" onClick={toggleSignUp}>
-              Sign Up
-            </Button>
-          </p>
-          <hr className="my-2" />
-          <br />
-          <p>If you're a returning angler you already know what to do.</p>
-          <p className="lead">
-            <Button color="success" onClick={toggleSignIn}>
-              Sign In
-            </Button>
-          </p>
-          <Modal
-            isOpen={signUpModal}
-            toggleSignUp={toggleSignUp}
-            className={className}
-          >
-            <ModalHeader toggleSignUp={toggleSignUp}>Sign Up</ModalHeader>
-            <ModalBody>
-              <SignUpForm />
-            </ModalBody>
-            <ModalFooter>
-              {/* <Button color="primary" onSubmit={() => toggleSignUp}>
+    <div className="jumbo-land">
+      <Jumbotron color="dark">
+        <h1 className="display-3">Welcome to Fish Friends!</h1>
+        <p className="lead">
+          If this is your first time visiting us we encourage you to sign up to
+          get the full experience.
+        </p>
+        <p className="lead">
+          <Button color="success" onClick={toggleSignUp}>
+            Sign Up
+          </Button>
+        </p>
+        <hr className="my-2" />
+        <br />
+        <p>If you're a returning angler you already know what to do.</p>
+        <p className="lead">
+          <Button color="success" onClick={toggleSignIn}>
+            Sign In
+          </Button>
+        </p>
+        <Modal
+          isOpen={signUpModal}
+          toggleSignUp={toggleSignUp}
+          className={className}
+        >
+          <ModalHeader toggleSignUp={toggleSignUp}>Sign Up</ModalHeader>
+          <ModalBody>
+            <SignUpForm />
+          </ModalBody>
+          <ModalFooter>
+            {/* <Button color="primary" onSubmit={() => toggleSignUp}>
                 Submit
               </Button>{" "} */}
-              <Button color="secondary" onClick={toggleSignUp}>
-                Cancel
-              </Button>
-            </ModalFooter>
-          </Modal>
-          <Modal
-            isOpen={signInModal}
-            toggleSignIn={toggleSignIn}
-            className={className}
-          >
-            <ModalHeader toggleSignIn={toggleSignIn}>Sign In</ModalHeader>
-            <ModalBody>
-              <SignInForm />
-            </ModalBody>
-            <ModalFooter>
-              {/* <Button type="submit" color="primary" onSubmit={toggleSignIn}>
+            <Button color="secondary" onClick={toggleSignUp}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
+        <Modal
+          isOpen={signInModal}
+          toggleSignIn={toggleSignIn}
+          className={className}
+        >
+          <ModalHeader toggleSignIn={toggleSignIn}>Sign In</ModalHeader>
+          <ModalBody>
+            <SignInForm />
+          </ModalBody>
+          <ModalFooter>
+            {/* <Button type="submit" color="primary" onSubmit={toggleSignIn}>
                 Submit
               </Button>{" "} */}
-              <Button color="secondary" onClick={toggleSignIn}>
-                Cancel
-              </Button>
-            </ModalFooter>
-          </Modal>
-        </Jumbotron>
-      </div>
+            <Button color="secondary" onClick={toggleSignIn}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </Jumbotron>
     </div>
   )
 }

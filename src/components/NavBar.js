@@ -7,6 +7,7 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
+  NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -27,6 +28,10 @@ export default function NavBar() {
               Fish Friends
             </NavbarBrand>
           </Link>
+          <NavLink className="text-white" href="/dashboard/">
+            Home
+          </NavLink>
+
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="mr-auto" navbar>
@@ -39,6 +44,9 @@ export default function NavBar() {
                   <DropdownItem>Fish Log</DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
+              <NavItem>
+                {/* <NavLink href="/dashboard/">Home</NavLink> */}
+              </NavItem>
             </Nav>
           </Collapse>
         </Navbar>
