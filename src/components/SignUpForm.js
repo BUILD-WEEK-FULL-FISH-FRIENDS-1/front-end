@@ -1,19 +1,20 @@
 import React from "react"
 import { useForm } from "react-hook-form"
+
 //import axios from 'axios'
-import {axiosWithAuth} from "../utils/axiosWithAuth"
+import { axiosWithAuth } from "../utils/axiosWithAuth"
 
 export default function SignUpForm(props) {
   //console.log(`LOG IN${props}`)
   const { register, handleSubmit, errors } = useForm()
   const onSubmit = data => {
     console.log(data)
-    
-    axiosWithAuth().post('/auth/register/', data)
-    .then(res=>console.log(`NEW USER POST RESPONSE ${res}`))
-    .catch(err=>console.log(err))
-    props.history.push('')
-    
+
+    axiosWithAuth()
+      .post("/auth/register/", data)
+      .then(res => console.log(`NEW USER POST RESPONSE ${res}`))
+      .catch(err => console.log(err))
+    props.history.push("")
   }
   return (
     <form className="supForm" onSubmit={handleSubmit(onSubmit)}>
