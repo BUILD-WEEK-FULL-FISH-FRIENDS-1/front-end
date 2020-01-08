@@ -12,6 +12,7 @@ export default function DashBoard(props) {
 
   const { register, handleSubmit, errors } = useForm()
 
+
   let id = localStorage.getItem('userID');
   const onSubmit = data => {
     console.log(data, "added log")
@@ -19,7 +20,7 @@ export default function DashBoard(props) {
     axiosWithAuth().post(`/user/${id&&id}/logs/`, data)
     .then(res=>console.log(res))
     .catch(err=>console.log(err))
-
+    
   }
 
   const { buttonLabel, className } = props
@@ -71,6 +72,7 @@ export default function DashBoard(props) {
                 <input name="location" ref={register({ required: true })} />
               </label>
               &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
               <label htmlFor="score">
                 <p>score (1-100)</p>
                 <input name="score" ref={register({ required: true })} />
@@ -81,6 +83,7 @@ export default function DashBoard(props) {
                 <input name="log" ref={register({ required: true })} />
               </label>
                 <br/>
+
               <button type="submit">Add Log</button>
             </form>
           </ModalBody>
