@@ -39,12 +39,14 @@ export default function DashBoard(props) {
       .catch(error => {
         console.log(error)
       })
-  }, [])
+  }, [toggle])
 
   function addLogToFeed(e) {
-    const item = e.target.value
-    console.log(item)
-    setFeed(feed => [...feed, item])
+    e.preventDefault()
+
+    //axios with auth here
+    //.finally(() => toggle())
+    toggle()
   }
 
   return (
@@ -88,7 +90,7 @@ export default function DashBoard(props) {
                 <input name="log" ref={register({ required: true })} />
               </label>
               <br />
-              <button type="submit" onClick={addLogToFeed}>
+              <button type="submit" onClick={e => addLogToFeed(e)}>
                 Add Log
               </button>
             </form>
