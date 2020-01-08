@@ -14,7 +14,7 @@ export default function LogCard(props) {
 
   console.log(props)
   const userId = localStorage.getItem('userID')
-
+const aChange = 1
   const handleRemove= ()=>{
     axiosWithAuth().delete(`/user/${userId}/logs/${props.log.id}`)
     .then(res=>console.log(res))
