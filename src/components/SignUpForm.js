@@ -1,6 +1,5 @@
 import React from "react"
 import { useForm } from "react-hook-form"
-import { Col, Row, Form, FormGroup, Label, Input } from "reactstrap"
 
 export default function SignUpForm() {
   const { register, handleSubmit, errors } = useForm()
