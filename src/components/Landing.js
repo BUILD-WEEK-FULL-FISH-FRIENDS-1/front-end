@@ -49,7 +49,7 @@ export default function Landing(props) {
         >
           <ModalHeader toggleSignUp={toggleSignUp}>Sign Up</ModalHeader>
           <ModalBody>
-            <SignUpForm />
+            <SignUpForm history={props.history} />
           </ModalBody>
           <ModalFooter>
             {/* <Button color="primary" onSubmit={() => toggleSignUp}>
@@ -67,7 +67,7 @@ export default function Landing(props) {
         >
           <ModalHeader toggleSignIn={toggleSignIn}>Sign In</ModalHeader>
           <ModalBody>
-            <SignInForm />
+            <SignInForm history={props.history}/>
           </ModalBody>
           <ModalFooter>
             {/* <Button type="submit" color="primary" onSubmit={toggleSignIn}>

@@ -1,10 +1,20 @@
 import React from "react"
 import { useForm } from "react-hook-form"
 
-export default function SignUpForm() {
+//import axios from 'axios'
+import { axiosWithAuth } from "../utils/axiosWithAuth"
+
+export default function SignUpForm(props) {
+  //console.log(`LOG IN${props}`)
   const { register, handleSubmit, errors } = useForm()
   const onSubmit = data => {
     console.log(data)
+
+    axiosWithAuth()
+      .post("/auth/register/", data)
+      .then(res => console.log(`NEW USER POST RESPONSE ${res}`))
+      .catch(err => console.log(err))
+    props.history.push("")
   }
   return (
     <form className="supForm" onSubmit={handleSubmit(onSubmit)}>
@@ -17,7 +27,7 @@ export default function SignUpForm() {
       </label>
       <br />
 
-      <label htmlFor="firstname">
+      {/* <label htmlFor="firstname">
         <p>First Name</p>
         <input
           name="firstname"
@@ -25,9 +35,9 @@ export default function SignUpForm() {
           ref={register({ required: true, maxLength: 20 })}
         />
       </label>
-      <br />
+      <br /> */}
 
-      <label htmlFor="lastname">
+      {/* <label htmlFor="lastname">
         <p>Last Name</p>
         <input
           name="laststname"
@@ -35,13 +45,13 @@ export default function SignUpForm() {
           ref={register({ required: true, maxLength: 20 })}
         />
       </label>
-      <br />
+      <br /> */}
 
-      <label htmlFor="email">
+      {/* <label htmlFor="email">
         <p>Email</p>
         <input name="email" type="email" ref={register({ required: true })} />
       </label>
-      <br />
+      <br /> */}
 
       <label htmlFor="password">
         <p>Password</p>
@@ -53,7 +63,7 @@ export default function SignUpForm() {
       </label>
       <br />
 
-      <input
+      {/* <input
         type="checkbox"
         name="check"
         id="Check"
@@ -62,7 +72,7 @@ export default function SignUpForm() {
       <label htmlFor="Check" check>
         Terms Of Service
       </label>
-      <br />
+      <br /> */}
       <button type="submit">Sign Up</button>
     </form>
   )

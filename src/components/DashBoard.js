@@ -2,17 +2,25 @@ import React, { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import NavBar from "./NavBar.js"
 import axios from "axios"
+import { axiosWithAuth } from "../utils/axiosWithAuth"
 import LogList from "./LogList.js"
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap"
 
 export default function DashBoard(props) {
   const [feed, setFeed] = useState([])
+
   const apiName = "https://fish-friends-2020.herokuapp.com/api/logs/"
 
   const { register, handleSubmit, errors } = useForm()
 
+  let id = localStorage.getItem("userID")
   const onSubmit = data => {
     console.log(data, "added log")
+    data = { ...data, userID: id }
+    axiosWithAuth()
+      .post(`/user/${id && id}/logs/`, data)
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
   }
 
   const { buttonLabel, className } = props
@@ -32,6 +40,12 @@ export default function DashBoard(props) {
         console.log(error)
       })
   }, [])
+
+  function addLogToFeed(e) {
+    const item = e.target.value
+    console.log(item)
+    setFeed(feed => [...feed, item])
+  }
 
   return (
     <div className="feed">
@@ -64,12 +78,19 @@ export default function DashBoard(props) {
                 <input name="location" ref={register({ required: true })} />
               </label>
               &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-              <label htmlFor="rating">
-                <p>Rating</p>
-                <input name="rating" ref={register({ required: true })} />
+              <label htmlFor="score">
+                <p>score (1-100)</p>
+                <input name="score" ref={register({ required: true })} />
               </label>
               <br />
-              <button type="submit">Add Log</button>
+              <label htmlFor="log">
+                <p>Log Description</p>
+                <input name="log" ref={register({ required: true })} />
+              </label>
+              <br />
+              <button type="submit" onClick={addLogToFeed}>
+                Add Log
+              </button>
             </form>
           </ModalBody>
           <ModalFooter>
