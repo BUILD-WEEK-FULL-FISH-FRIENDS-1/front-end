@@ -1,22 +1,32 @@
-import React from "react"
+import React, {useState} from "react"
 import { useForm } from "react-hook-form"
 import {axiosWithAuth} from "../utils/axiosWithAuth"
-import { Route } from "react-router-dom"
+import { Route, Link } from "react-router-dom"
 import {PrivateRoute} from "../utils/PrivateRoute"
+import {userContext} from "../contexts/userContext"
 
-export default function SignInForm() {
+
+export default function SignInForm(props) {
+  console.log(props)
+  
   const { register, handleSubmit, errors } = useForm()
   const onSubmit = data => {
     console.log(data, "hello")
     axiosWithAuth().post('/auth/login/',data)
-    .then(res=>//console.log(res)
+    .then(res=>{console.log(res)
     localStorage.setItem('token',res.data.token)
-    )
+   localStorage.setItem('userID', res.data.user.id)
+    })
     .catch(err =>console.log(err))
-    //this.history.push('/DashBoard')
+    props.history.push('/DashBoard')
   }
+  // const handleClick = () =>{
+  //   this.history.push("/DashBoard")
+  // }
+  
   return (
     <div>
+      
     <form onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="username">
         <p>username</p>
@@ -28,9 +38,11 @@ export default function SignInForm() {
         <input type="password" name="password" ref={register} />
       </label>
       <br />
-      <button type="submit">Sign In</button>
+     
+      <button type="submit" >Sign In</button>
+      <br/>
     </form>
-    <PrivateRoute path="/DashBoard" Route="/components/Dashboard"/>
+    
     
    </div>
   )
