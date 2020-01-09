@@ -34,7 +34,7 @@ const username = useContext(UserContext)
           <NavLink className="text-white" href="/dashboard/">
             Home
           </NavLink>
-          <h3>current user:{username}</h3>
+          <p>current user:{username}</p>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="mr-auto" navbar>
