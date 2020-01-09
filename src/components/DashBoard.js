@@ -5,10 +5,10 @@ import axios from "axios"
 import { axiosWithAuth } from "../utils/axiosWithAuth"
 import LogList from "./LogList.js"
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap"
-import {UserContext} from "../contexts/userContext"
+import { UserContext } from "../contexts/userContext"
 export default function DashBoard(props) {
   const [feed, setFeed] = useState([])
-  const userName = localStorage.getItem('userName')
+  const userName = localStorage.getItem("userName")
   const apiName = "https://fish-friends-2020.herokuapp.com/api/logs/"
 
   const { register, handleSubmit, errors } = useForm()
@@ -19,9 +19,11 @@ export default function DashBoard(props) {
     data = { ...data, userID: id }
     axiosWithAuth()
       .post(`/user/${id && id}/logs/`, data)
-      .then(res => console.log(res))
+      .then(res => {
+        setRefresh(!refresh)
+        console.log(res)
+      })
       .catch(err => console.log(err))
-      setRefresh(!refresh)
   }
 
   const { buttonLabel, className } = props
@@ -30,8 +32,7 @@ export default function DashBoard(props) {
 
   const toggle = () => setModal(!modal)
 
-  const [refresh, setRefresh]=useState(false)
-  useEffect(()=>{console.log(refresh)},[refresh])
+  const [refresh, setRefresh] = useState(false)
 
   useEffect(() => {
     axios
@@ -43,24 +44,12 @@ export default function DashBoard(props) {
       .catch(error => {
         console.log(error)
       })
-      
-  }, [])
-
-  // function addLogToFeed(e) {
-  //   e.preventDefault()
-  //   useEffect(()=>{
-  //   axiosWithAuth().get('logs/')
-  //   .then(res=>console.log(res))
-  //   .catch(err=>console.log(err))
-  //   .finally(() => toggle())
-  //   toggle()
-  // },[toggle])
-  // }
+  }, [modal])
 
   return (
     <div className="feed">
       <UserContext.Provider value={userName}>
-      <NavBar />
+        <NavBar />
       </UserContext.Provider>
       <div className="mode">
         <Button color="success" onClick={toggle}>
@@ -100,9 +89,7 @@ export default function DashBoard(props) {
                 <input name="log" ref={register({ required: true })} />
               </label>
               <br />
-               <button type="submit"> 
-                Add Log
-              </button>
+              <button type="submit">Add Log</button>
             </form>
           </ModalBody>
           <ModalFooter>
