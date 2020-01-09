@@ -34,9 +34,8 @@ export default function LogCard(props) {
       bait: data.bait === '' ? props.log.bait : data.bait,
       fish: data.fish === '' ? props.log.fish : data.fish,
       location: data.location === '' ? props.log.location : data.location,
-      //Log: data.log === '' ? props.log.log : data.log,
-      // score: data.score === '' ? props.log.score : data.score
-      
+      log: data.log === '' ? props.log.log : data.log,
+      score: data.score === '' ? props.log.score : data.score 
     } 
     
     axiosWithAuth().put(`/user/${userId}/logs/${props.log.id}`, payload)
@@ -44,11 +43,6 @@ export default function LogCard(props) {
       window.location.reload(false);
     })
     .catch(err=>console.log(err))
-    //setRefresh(!refresh)
-
-    
-     
-    
   }
 
   return (
