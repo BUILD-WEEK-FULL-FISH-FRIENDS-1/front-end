@@ -22,7 +22,7 @@ export default function LogCard(props) {
   const handleRemove= ()=>{
     axiosWithAuth().delete(`/user/${userId}/logs/${props.log.id}`)
     .then(res=>{console.log(res)
-      
+      window.location.reload(false);
     })
     .catch(err=>console.log(err))
     }
@@ -40,9 +40,15 @@ export default function LogCard(props) {
     } 
     
     axiosWithAuth().put(`/user/${userId}/logs/${props.log.id}`, payload)
-    .then(res=>console.log(res))
+    .then(res=>{console.log(res)
+      window.location.reload(false);
+    })
     .catch(err=>console.log(err))
-    setRefresh(!refresh)
+    //setRefresh(!refresh)
+
+    
+     
+    
   }
 
   return (
