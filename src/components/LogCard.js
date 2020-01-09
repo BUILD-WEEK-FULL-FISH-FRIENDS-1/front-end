@@ -60,6 +60,7 @@ export default function LogCard(props) {
   }
 
   return (
+    
     <Card>
       <CardBody>
         <div className="card-map">
@@ -147,5 +148,6 @@ export default function LogCard(props) {
         </Modal>
       </CardBody>
     </Card>
+  
   )
 }
