@@ -32,9 +32,17 @@ div .jumbotron {
   align-items: center;
   flex-wrap: wrap;
   padding-bottom: 3%;
+ 
+ 
 }
 
 .card {
   margin-top: 3%;
   width: 66%;
+  border-radius: 15px !important;
+  box-shadow:black 5px 5px 5px;
+}
+
+.nav-bar p {
+  color: white;
 }

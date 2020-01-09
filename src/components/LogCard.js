@@ -60,6 +60,7 @@ export default function LogCard(props) {
   }
 
   return (
+    
     <Card>
       <CardBody>
         <CardTitle>{props.log.title}</CardTitle>
@@ -140,5 +141,6 @@ export default function LogCard(props) {
         </Modal>
       </CardBody>
     </Card>
+  
   )
 }
