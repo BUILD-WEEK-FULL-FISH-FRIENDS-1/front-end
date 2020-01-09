@@ -16,6 +16,7 @@ export default function SignInForm(props) {
     .then(res=>{console.log(res)
     localStorage.setItem('token',res.data.token)
    localStorage.setItem('userID', res.data.user.id)
+   localStorage.setItem('userName',res.data.user.username)
     })
     .catch(err =>console.log(err))
     props.history.push('/DashBoard')
