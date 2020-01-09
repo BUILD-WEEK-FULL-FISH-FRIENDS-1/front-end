@@ -6,6 +6,7 @@ import { axiosWithAuth } from "../utils/axiosWithAuth"
 import LogList from "./LogList.js"
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap"
 import { UserContext } from "../contexts/userContext"
+
 export default function DashBoard(props) {
   const [feed, setFeed] = useState([])
   const userName = localStorage.getItem("userName")
@@ -21,6 +22,7 @@ export default function DashBoard(props) {
       .post(`/user/${id && id}/logs/`, data)
       .then(res => {
         setRefresh(!refresh)
+        window.location.reload(false)
         console.log(res)
       })
       .catch(err => console.log(err))
@@ -44,19 +46,7 @@ export default function DashBoard(props) {
       .catch(error => {
         console.log(error)
       })
-<<<<<<< HEAD
-  }, [])
-
-  function addLogToFeed(e) {
-    e.preventDefault()
-
-    //axios with auth here
-    //.finally(() => toggle())
-    toggle()
-  }
-=======
   }, [modal])
->>>>>>> 391738ef9a034a853d5bf824a59cb1d42656970b
 
   return (
     <div className="feed">

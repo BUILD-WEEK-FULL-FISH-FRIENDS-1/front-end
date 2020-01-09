@@ -12,7 +12,7 @@ export default function SignUpForm(props) {
 
     axiosWithAuth()
       .post("/auth/register/", data)
-      .then(res =>console.log(`NEW USER POST RESPONSE ${res}`))
+      .then(res => console.log(`NEW USER POST RESPONSE ${res}`))
       .catch(err => console.log(err))
     props.history.push("")
   }
@@ -22,36 +22,17 @@ export default function SignUpForm(props) {
         <p>Username</p>
         <input
           name="username"
-          ref={register({ required: true, minLength: 6, maxLength: 20 })}
+          ref={register({ required: true, maxLength: 20 })}
         />
+        <br />
+        {errors.username &&
+          errors.username.type === "required" &&
+          "Username is required"}
+        {errors.username &&
+          errors.username.type === "maxLength" &&
+          "Username must not exceed 20 characters"}
       </label>
       <br />
-
-      {/* <label htmlFor="firstname">
-        <p>First Name</p>
-        <input
-          name="firstname"
-          type="text"
-          ref={register({ required: true, maxLength: 20 })}
-        />
-      </label>
-      <br /> */}
-
-      {/* <label htmlFor="lastname">
-        <p>Last Name</p>
-        <input
-          name="laststname"
-          type="text"
-          ref={register({ required: true, maxLength: 20 })}
-        />
-      </label>
-      <br /> */}
-
-      {/* <label htmlFor="email">
-        <p>Email</p>
-        <input name="email" type="email" ref={register({ required: true })} />
-      </label>
-      <br /> */}
 
       <label htmlFor="password">
         <p>Password</p>
@@ -60,19 +41,16 @@ export default function SignUpForm(props) {
           type="password"
           ref={register({ required: true, minLength: 8 })}
         />
+        <br />
+        {errors.password &&
+          errors.password.type === "required" &&
+          "Password is required"}
+        {errors.password &&
+          errors.password.type === "minLength" &&
+          "Password must be at least 8 characters long"}
       </label>
       <br />
 
-      {/* <input
-        type="checkbox"
-        name="check"
-        id="Check"
-        ref={register({ required: true })}
-      />
-      <label htmlFor="Check" check>
-        Terms Of Service
-      </label>
-      <br /> */}
       <button type="submit">Sign Up</button>
     </form>
   )

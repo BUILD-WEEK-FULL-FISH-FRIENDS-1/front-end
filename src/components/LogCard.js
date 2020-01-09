@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { axiosWithAuth } from "../utils/axiosWithAuth"
 import { useForm } from "react-hook-form"
 import {
@@ -13,33 +12,33 @@ import {
   ModalFooter,
   Button
 } from "reactstrap"
-=======
-import React,{useState, useEffect} from "react"
-import {axiosWithAuth} from "../utils/axiosWithAuth"
-import {useForm} from "react-hook-form"
-import { Card, CardBody, CardTitle, CardText, Modal, ModalHeader, ModalBody, ModalFooter,Button } from "reactstrap"
->>>>>>> 391738ef9a034a853d5bf824a59cb1d42656970b
 
 export default function LogCard(props) {
   //Reactstrap variables
   const { buttonLabel, className } = props
   const [modal, setModal] = useState(false)
-<<<<<<< HEAD
-  const [form, setForm] = useState(props)
-
   const toggle = () => setModal(!modal)
-
   const { register, handleSubmit } = useForm()
 
-  console.log(props)
+  //Localstorage get for handle remove
   const userId = localStorage.getItem("userID")
-  const aChange = 1
+  //helper functions
+
+  const [refresh, setRefresh] = useState(false)
+  useEffect(() => {
+    console.log(refresh)
+  }, [refresh])
+
   const handleRemove = () => {
     axiosWithAuth()
       .delete(`/user/${userId}/logs/${props.log.id}`)
-      .then(res => console.log(res))
+      .then(res => {
+        console.log(res)
+        window.location.reload(false)
+      })
       .catch(err => console.log(err))
   }
+
   const onSubmit = data => {
     console.log(data)
     const payload = {
@@ -47,59 +46,17 @@ export default function LogCard(props) {
       bait: data.bait === "" ? props.log.bait : data.bait,
       fish: data.fish === "" ? props.log.fish : data.fish,
       location: data.location === "" ? props.log.location : data.location,
-      rating: data.log === "" ? props.log.log : data.log,
+      log: data.log === "" ? props.log.log : data.log,
       score: data.score === "" ? props.log.score : data.score
     }
+
     axiosWithAuth()
       .put(`/user/${userId}/logs/${props.log.id}`, payload)
-      .then(res => console.log(res))
+      .then(res => {
+        console.log(res)
+        window.location.reload(false)
+      })
       .catch(err => console.log(err))
-=======
-  const toggle = () => setModal(!modal)
-  const {register, handleSubmit} = useForm() 
-
-  //Localstorage get for handle remove 
-  const userId = localStorage.getItem('userID')
-  //helper functions 
-
-  
-  const [refresh, setRefresh]=useState(false)
-  useEffect(()=>{console.log(refresh)},[refresh])
-  
-
-  const handleRemove= ()=>{
-    axiosWithAuth().delete(`/user/${userId}/logs/${props.log.id}`)
-    .then(res=>{console.log(res)
-      window.location.reload(false);
-    })
-    .catch(err=>console.log(err))
-    }
-
-  const onSubmit = data =>{
-    console.log(data)
-    const payload = {
-      title: data.title === '' ? props.log.title : data.title,
-      bait: data.bait === '' ? props.log.bait : data.bait,
-      fish: data.fish === '' ? props.log.fish : data.fish,
-      location: data.location === '' ? props.log.location : data.location,
-      log: data.log === '' ? props.log.log : data.log,
-      score: data.score === '' ? props.log.score : data.score 
-    } 
-    
-    axiosWithAuth().put(`/user/${userId}/logs/${props.log.id}`, payload)
-    .then(res=>{console.log(res)
-      window.location.reload(false);
-    })
-    .catch(err=>console.log(err))
-<<<<<<< HEAD
-    //setRefresh(!refresh)
-
-    
-     
-    
->>>>>>> 391738ef9a034a853d5bf824a59cb1d42656970b
-=======
->>>>>>> 79799cc6be1b1876deddb5bafbed0d39a89fefee
   }
 
   return (
@@ -111,7 +68,9 @@ export default function LogCard(props) {
         <CardText>Location: {props.log.location}</CardText>
         <CardText>Log: {props.log.log}</CardText>
         <CardText>Score: {props.log.score}</CardText>
-        <Button onClick={handleRemove} color="danger">Remove Log</Button>
+        <Button onClick={handleRemove} color="danger">
+          Remove Log
+        </Button>
         &nbsp;&nbsp;
         <Button color="success" onClick={toggle}>
           Edit Log
