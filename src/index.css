@@ -38,3 +38,8 @@ div .jumbotron {
   margin-top: 3%;
   width: 66%;
 }
+
+.card-map {
+  display: flex;
+  justify-content: space-between;
+}
