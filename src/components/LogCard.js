@@ -1,48 +1,62 @@
-import React,{useState, useEffect} from "react"
-import {axiosWithAuth} from "../utils/axiosWithAuth"
-import {useForm} from "react-hook-form"
-import { Card, CardBody, CardTitle, CardText, Modal, ModalHeader, ModalBody, ModalFooter,Button } from "reactstrap"
+import React, { useState, useEffect } from "react"
+import { axiosWithAuth } from "../utils/axiosWithAuth"
+import { useForm } from "react-hook-form"
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  CardText,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button
+} from "reactstrap"
 
 export default function LogCard(props) {
   //Reactstrap variables
   const { buttonLabel, className } = props
   const [modal, setModal] = useState(false)
   const toggle = () => setModal(!modal)
-  const {register, handleSubmit} = useForm() 
+  const { register, handleSubmit } = useForm()
 
-  //Localstorage get for handle remove 
-  const userId = localStorage.getItem('userID')
-  //helper functions 
+  //Localstorage get for handle remove
+  const userId = localStorage.getItem("userID")
+  //helper functions
 
-  
-  const [refresh, setRefresh]=useState(false)
-  useEffect(()=>{console.log(refresh)},[refresh])
-  
+  const [refresh, setRefresh] = useState(false)
+  useEffect(() => {
+    console.log(refresh)
+  }, [refresh])
 
-  const handleRemove= ()=>{
-    axiosWithAuth().delete(`/user/${userId}/logs/${props.log.id}`)
-    .then(res=>{console.log(res)
-      window.location.reload(false);
-    })
-    .catch(err=>console.log(err))
-    }
+  const handleRemove = () => {
+    axiosWithAuth()
+      .delete(`/user/${userId}/logs/${props.log.id}`)
+      .then(res => {
+        console.log(res)
+        window.location.reload(false)
+      })
+      .catch(err => console.log(err))
+  }
 
-  const onSubmit = data =>{
+  const onSubmit = data => {
     console.log(data)
     const payload = {
-      title: data.title === '' ? props.log.title : data.title,
-      bait: data.bait === '' ? props.log.bait : data.bait,
-      fish: data.fish === '' ? props.log.fish : data.fish,
-      location: data.location === '' ? props.log.location : data.location,
-      log: data.log === '' ? props.log.log : data.log,
-      score: data.score === '' ? props.log.score : data.score 
-    } 
-    
-    axiosWithAuth().put(`/user/${userId}/logs/${props.log.id}`, payload)
-    .then(res=>{console.log(res)
-      window.location.reload(false);
-    })
-    .catch(err=>console.log(err))
+      title: data.title === "" ? props.log.title : data.title,
+      bait: data.bait === "" ? props.log.bait : data.bait,
+      fish: data.fish === "" ? props.log.fish : data.fish,
+      location: data.location === "" ? props.log.location : data.location,
+      log: data.log === "" ? props.log.log : data.log,
+      score: data.score === "" ? props.log.score : data.score
+    }
+
+    axiosWithAuth()
+      .put(`/user/${userId}/logs/${props.log.id}`, payload)
+      .then(res => {
+        console.log(res)
+        window.location.reload(false)
+      })
+      .catch(err => console.log(err))
   }
 
   return (
@@ -54,7 +68,9 @@ export default function LogCard(props) {
         <CardText>Location: {props.log.location}</CardText>
         <CardText>Log: {props.log.log}</CardText>
         <CardText>Score: {props.log.score}</CardText>
-        <Button onClick={handleRemove} color="danger">Remove Log</Button>
+        <Button onClick={handleRemove} color="danger">
+          Remove Log
+        </Button>
         &nbsp;&nbsp;
         <Button color="success" onClick={toggle}>
           Edit Log
@@ -65,34 +81,54 @@ export default function LogCard(props) {
             <form onSubmit={handleSubmit(onSubmit)}>
               <label htmlFor="title">
                 <p>Title</p>
-                <input name="title" placeholder={props.log.title} ref={register} />
+                <input
+                  name="title"
+                  placeholder={props.log.title}
+                  ref={register}
+                />
               </label>
               <br />
               <label htmlFor="bait">
                 <p>Bait Used</p>
-                <input name="bait" placeholder={props.log.bait} ref={register} />
+                <input
+                  name="bait"
+                  placeholder={props.log.bait}
+                  ref={register}
+                />
               </label>
               &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
               <label htmlFor="fish">
                 <p>Fish Caught</p>
-                <input name="fish" placeholder={props.log.fish} ref={register} />
+                <input
+                  name="fish"
+                  placeholder={props.log.fish}
+                  ref={register}
+                />
               </label>
               <br />
               <label htmlFor="location">
                 <p>Location</p>
-                <input name="location" placeholder={props.log.location} ref={register} />
+                <input
+                  name="location"
+                  placeholder={props.log.location}
+                  ref={register}
+                />
               </label>
               &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
               <label htmlFor="score">
                 <p>score (1-100)</p>
-                <input name="score" placeholder={props.log.score}  ref={register}/>
+                <input
+                  name="score"
+                  placeholder={props.log.score}
+                  ref={register}
+                />
               </label>
               <br />
               <label htmlFor="log">
                 <p>Log Description</p>
                 <input name="log" placeholder={props.log.log} ref={register} />
               </label>
-                <br/>
+              <br />
               <button type="submit">Confirm Edit</button>
             </form>
           </ModalBody>
