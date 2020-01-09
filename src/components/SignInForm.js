@@ -21,11 +21,11 @@ export default function SignInForm(props) {
         localStorage.setItem("userName", res.data.user.username)
       })
       .catch(err => console.log(err))
+    //props.history.push("/DashBoard")
+  }
+  const handleClick = () =>{
     props.history.push("/DashBoard")
   }
-  // const handleClick = () =>{
-  //   this.history.push("/DashBoard")
-  // }
 
   return (
     <div>
@@ -51,6 +51,8 @@ export default function SignInForm(props) {
         <br />
 
         <button type="submit">Sign In</button>
+        &nbsp;&nbsp;
+        <button onClick={handleClick}>Enter Site</button>
         <br />
       </form>
     </div>
