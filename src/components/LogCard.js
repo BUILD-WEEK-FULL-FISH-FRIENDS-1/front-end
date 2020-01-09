@@ -13,12 +13,20 @@ export default function LogCard(props) {
   //Localstorage get for handle remove 
   const userId = localStorage.getItem('userID')
   //helper functions 
+
+  
+  const [refresh, setRefresh]=useState(false)
+  useEffect(()=>{console.log(refresh)},[refresh])
+  
+
   const handleRemove= ()=>{
     axiosWithAuth().delete(`/user/${userId}/logs/${props.log.id}`)
-    .then(res=>console.log(res))
+    .then(res=>{console.log(res)
+      
+    })
     .catch(err=>console.log(err))
-    
-  }
+    }
+
   const onSubmit = data =>{
     console.log(data)
     const payload = {
@@ -26,28 +34,30 @@ export default function LogCard(props) {
       bait: data.bait === '' ? props.log.bait : data.bait,
       fish: data.fish === '' ? props.log.fish : data.fish,
       location: data.location === '' ? props.log.location : data.location,
-      // rating: data.log === '' ? props.log.log : data.log,
-      // score: data.score === '' ? props.log.score : data.score, 
+      //Log: data.log === '' ? props.log.log : data.log,
+      // score: data.score === '' ? props.log.score : data.score
+      
     } 
+    
     axiosWithAuth().put(`/user/${userId}/logs/${props.log.id}`, payload)
     .then(res=>console.log(res))
     .catch(err=>console.log(err))
-    
-
+    setRefresh(!refresh)
   }
- 
 
   return (
     <Card>
       <CardBody>
         <CardTitle>{props.log.title}</CardTitle>
-        <CardText>Type of Bait Used:{props.log.bait}</CardText>
-        <CardText>Type of Fish Caught:{props.log.fish}</CardText>
-        <CardText>Location:{props.log.location}</CardText>
-        <CardText>Rating:{props.log.log}</CardText>
-        <Button onClick={handleRemove}  >Remove Log</Button>
+        <CardText>Type of Bait Used: {props.log.bait}</CardText>
+        <CardText>Type of Fish Caught: {props.log.fish}</CardText>
+        <CardText>Location: {props.log.location}</CardText>
+        <CardText>Log: {props.log.log}</CardText>
+        <CardText>Score: {props.log.score}</CardText>
+        <Button onClick={handleRemove} color="danger">Remove Log</Button>
+        &nbsp;&nbsp;
         <Button color="success" onClick={toggle}>
-          Edit Log 
+          Edit Log
         </Button>
         <Modal isOpen={modal} toggle={toggle} className={className}>
           <ModalHeader toggle={toggle}>Edit Log </ModalHeader>
