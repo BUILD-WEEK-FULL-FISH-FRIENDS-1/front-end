@@ -10,6 +10,7 @@ export default function LogCard(props) {
 
 
   const toggle = () => setModal(!modal)
+
   const {register, handleSubmit} = useForm() 
 
   console.log(props)
@@ -21,10 +22,19 @@ const aChange = 1
     .catch(err=>console.log(err))
   }
   const onSubmit = data =>{
-    console.log(data) 
-    axiosWithAuth().put(`/user/${userId}/logs/${props.log.id}`, data)
+    console.log(data)
+    const payload = {
+      title: data.title === '' ? props.log.title : data.title,
+      bait: data.bait === '' ? props.log.bait : data.bait,
+      fish: data.fish === '' ? props.log.fish : data.fish,
+      location: data.location === '' ? props.log.location : data.location,
+      rating: data.log === '' ? props.log.log : data.log,
+      score: data.score === '' ? props.log.score : data.score 
+    } 
+    axiosWithAuth().put(`/user/${userId}/logs/${props.log.id}`, payload)
     .then(res=>console.log(res))
     .catch(err=>console.log(err))
+
 
   }
   const handleChange = () =>{
@@ -50,32 +60,32 @@ const aChange = 1
             <form onSubmit={handleSubmit(onSubmit)}>
               <label htmlFor="title">
                 <p>Title</p>
-                <input name="title" placeholder={props.log.title} />
+                <input name="title" placeholder={props.log.title} ref={register} />
               </label>
               <br />
               <label htmlFor="bait">
                 <p>Bait Used</p>
-                <input name="bait" placeholder={props.log.bait}  />
+                <input name="bait" placeholder={props.log.bait} ref={register} />
               </label>
               &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
               <label htmlFor="fish">
                 <p>Fish Caught</p>
-                <input name="fish" placeholder={props.log.fish}  />
+                <input name="fish" placeholder={props.log.fish} ref={register} />
               </label>
               <br />
               <label htmlFor="location">
                 <p>Location</p>
-                <input name="location" placeholder={props.log.location}  />
+                <input name="location" placeholder={props.log.location} ref={register} />
               </label>
               &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
               <label htmlFor="score">
                 <p>score (1-100)</p>
-                <input name="score" placeholder={props.log.score}  />
+                <input name="score" placeholder={props.log.score}  ref={register}/>
               </label>
               <br />
               <label htmlFor="log">
                 <p>Log Description</p>
-                <input name="log" placeholder={props.log.log}  />
+                <input name="log" placeholder={props.log.log} ref={register} />
               </label>
                 <br/>
               <button type="submit">Confirm Edit</button>
