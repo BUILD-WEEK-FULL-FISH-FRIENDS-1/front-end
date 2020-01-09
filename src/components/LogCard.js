@@ -63,12 +63,19 @@ export default function LogCard(props) {
     
     <Card>
       <CardBody>
-        <CardTitle>{props.log.title}</CardTitle>
-        <CardText>Type of Bait Used: {props.log.bait}</CardText>
-        <CardText>Type of Fish Caught: {props.log.fish}</CardText>
-        <CardText>Location: {props.log.location}</CardText>
-        <CardText>Log: {props.log.log}</CardText>
-        <CardText>Score: {props.log.score}</CardText>
+        <div className="card-map">
+          <div>
+            <CardTitle>{props.log.title}</CardTitle>
+            <CardText>Type of Bait Used: {props.log.bait}</CardText>
+            <CardText>Type of Fish Caught: {props.log.fish}</CardText>
+            <CardText>Location: {props.log.location}</CardText>
+            <CardText>Log: {props.log.log}</CardText>
+            <CardText>Score: {props.log.score}</CardText>
+          </div>
+          <div>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d12676.278315045096!2d-76.16288826772126!3d36.8840511781243!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1578606067789!5m2!1sen!2sus"></iframe>
+          </div>
+        </div>
         <Button onClick={handleRemove} color="danger">
           Remove Log
         </Button>
