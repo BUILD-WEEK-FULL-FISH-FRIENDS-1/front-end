@@ -1,25 +1,23 @@
-import React,{useState} from "react"
+import React,{useState, useEffect} from "react"
 import {axiosWithAuth} from "../utils/axiosWithAuth"
 import {useForm} from "react-hook-form"
 import { Card, CardBody, CardTitle, CardText, Modal, ModalHeader, ModalBody, ModalFooter,Button } from "reactstrap"
 
 export default function LogCard(props) {
+  //Reactstrap variables
   const { buttonLabel, className } = props
   const [modal, setModal] = useState(false)
-  const [form, setForm] = useState(props)
-
-
   const toggle = () => setModal(!modal)
-
   const {register, handleSubmit} = useForm() 
 
-  console.log(props)
+  //Localstorage get for handle remove 
   const userId = localStorage.getItem('userID')
-const aChange = 1
+  //helper functions 
   const handleRemove= ()=>{
     axiosWithAuth().delete(`/user/${userId}/logs/${props.log.id}`)
     .then(res=>console.log(res))
     .catch(err=>console.log(err))
+    
   }
   const onSubmit = data =>{
     console.log(data)
@@ -28,19 +26,16 @@ const aChange = 1
       bait: data.bait === '' ? props.log.bait : data.bait,
       fish: data.fish === '' ? props.log.fish : data.fish,
       location: data.location === '' ? props.log.location : data.location,
-      rating: data.log === '' ? props.log.log : data.log,
-      score: data.score === '' ? props.log.score : data.score 
+      // rating: data.log === '' ? props.log.log : data.log,
+      // score: data.score === '' ? props.log.score : data.score, 
     } 
     axiosWithAuth().put(`/user/${userId}/logs/${props.log.id}`, payload)
     .then(res=>console.log(res))
     .catch(err=>console.log(err))
-
-
-  }
-  const handleChange = () =>{
-    setForm()
+    
 
   }
+ 
 
   return (
     <Card>
@@ -50,7 +45,7 @@ const aChange = 1
         <CardText>Type of Fish Caught:{props.log.fish}</CardText>
         <CardText>Location:{props.log.location}</CardText>
         <CardText>Rating:{props.log.log}</CardText>
-        <Button onClick={handleRemove}>Remove Log</Button>
+        <Button onClick={handleRemove}  >Remove Log</Button>
         <Button color="success" onClick={toggle}>
           Edit Log 
         </Button>

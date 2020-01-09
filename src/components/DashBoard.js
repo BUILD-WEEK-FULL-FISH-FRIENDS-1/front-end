@@ -5,10 +5,10 @@ import axios from "axios"
 import { axiosWithAuth } from "../utils/axiosWithAuth"
 import LogList from "./LogList.js"
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap"
-
+import {UserContext} from "../contexts/userContext"
 export default function DashBoard(props) {
   const [feed, setFeed] = useState([])
-
+  const userName = localStorage.getItem('userName')
   const apiName = "https://fish-friends-2020.herokuapp.com/api/logs/"
 
   const { register, handleSubmit, errors } = useForm()
@@ -21,6 +21,7 @@ export default function DashBoard(props) {
       .post(`/user/${id && id}/logs/`, data)
       .then(res => console.log(res))
       .catch(err => console.log(err))
+      setRefresh(!refresh)
   }
 
   const { buttonLabel, className } = props
@@ -28,6 +29,9 @@ export default function DashBoard(props) {
   const [modal, setModal] = useState(false)
 
   const toggle = () => setModal(!modal)
+
+  const [refresh, setRefresh]=useState(false)
+  useEffect(()=>{console.log(refresh)},[refresh])
 
   useEffect(() => {
     axios
@@ -39,19 +43,25 @@ export default function DashBoard(props) {
       .catch(error => {
         console.log(error)
       })
-  }, [toggle])
+      
+  }, [])
 
-  function addLogToFeed(e) {
-    e.preventDefault()
-
-    //axios with auth here
-    //.finally(() => toggle())
-    toggle()
-  }
+  // function addLogToFeed(e) {
+  //   e.preventDefault()
+  //   useEffect(()=>{
+  //   axiosWithAuth().get('logs/')
+  //   .then(res=>console.log(res))
+  //   .catch(err=>console.log(err))
+  //   .finally(() => toggle())
+  //   toggle()
+  // },[toggle])
+  // }
 
   return (
     <div className="feed">
+      <UserContext.Provider value={userName}>
       <NavBar />
+      </UserContext.Provider>
       <div className="mode">
         <Button color="success" onClick={toggle}>
           Add Log
@@ -90,7 +100,7 @@ export default function DashBoard(props) {
                 <input name="log" ref={register({ required: true })} />
               </label>
               <br />
-              <button type="submit" onClick={e => addLogToFeed(e)}>
+               <button type="submit"> 
                 Add Log
               </button>
             </form>
