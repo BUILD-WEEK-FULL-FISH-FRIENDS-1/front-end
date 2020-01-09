@@ -4,18 +4,15 @@ import {useForm} from "react-hook-form"
 import { Card, CardBody, CardTitle, CardText, Modal, ModalHeader, ModalBody, ModalFooter,Button } from "reactstrap"
 
 export default function LogCard(props) {
+  //Reactstrap variables
   const { buttonLabel, className } = props
   const [modal, setModal] = useState(false)
-  const [form, setForm] = useState(props)
-
-
   const toggle = () => setModal(!modal)
-
   const {register, handleSubmit} = useForm() 
 
-  console.log(props)
+  //Localstorage get for handle remove 
   const userId = localStorage.getItem('userID')
-const aChange = 1
+  //helper functions 
   const handleRemove= ()=>{
     axiosWithAuth().delete(`/user/${userId}/logs/${props.log.id}`)
     .then(res=>console.log(res))

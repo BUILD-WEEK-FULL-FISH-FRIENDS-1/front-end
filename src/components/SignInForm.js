@@ -8,8 +8,9 @@ import {userContext} from "../contexts/userContext"
 
 export default function SignInForm(props) {
   console.log(props)
-  
+  //React strap use form
   const { register, handleSubmit, errors } = useForm()
+  //submit helper
   const onSubmit = data => {
     console.log(data, "hello")
     axiosWithAuth().post('/auth/login/',data)

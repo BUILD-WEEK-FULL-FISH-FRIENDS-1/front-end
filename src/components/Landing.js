@@ -11,14 +11,12 @@ import SignUpForm from "./SignUpForm.js"
 import SignInForm from "./SignInForm.js"
 
 export default function Landing(props) {
+  //Reactstrap Var
   const { buttonLabel, className } = props
-
   const [signUpModal, setSignUpModal] = useState(false)
-
-  const toggleSignUp = () => setSignUpModal(!signUpModal)
-
   const [signInModal, setSignInModal] = useState(false)
-
+  //React strap helper functions
+  const toggleSignUp = () => setSignUpModal(!signUpModal)
   const toggleSignIn = () => setSignInModal(!signInModal)
 
   return (
