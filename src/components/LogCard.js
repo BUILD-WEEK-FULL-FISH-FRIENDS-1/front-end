@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from "react"
 import { axiosWithAuth } from "../utils/axiosWithAuth"
 import { useForm } from "react-hook-form"
@@ -12,10 +13,18 @@ import {
   ModalFooter,
   Button
 } from "reactstrap"
+=======
+import React,{useState, useEffect} from "react"
+import {axiosWithAuth} from "../utils/axiosWithAuth"
+import {useForm} from "react-hook-form"
+import { Card, CardBody, CardTitle, CardText, Modal, ModalHeader, ModalBody, ModalFooter,Button } from "reactstrap"
+>>>>>>> 391738ef9a034a853d5bf824a59cb1d42656970b
 
 export default function LogCard(props) {
+  //Reactstrap variables
   const { buttonLabel, className } = props
   const [modal, setModal] = useState(false)
+<<<<<<< HEAD
   const [form, setForm] = useState(props)
 
   const toggle = () => setModal(!modal)
@@ -45,17 +54,63 @@ export default function LogCard(props) {
       .put(`/user/${userId}/logs/${props.log.id}`, payload)
       .then(res => console.log(res))
       .catch(err => console.log(err))
+=======
+  const toggle = () => setModal(!modal)
+  const {register, handleSubmit} = useForm() 
+
+  //Localstorage get for handle remove 
+  const userId = localStorage.getItem('userID')
+  //helper functions 
+
+  
+  const [refresh, setRefresh]=useState(false)
+  useEffect(()=>{console.log(refresh)},[refresh])
+  
+
+  const handleRemove= ()=>{
+    axiosWithAuth().delete(`/user/${userId}/logs/${props.log.id}`)
+    .then(res=>{console.log(res)
+      window.location.reload(false);
+    })
+    .catch(err=>console.log(err))
+    }
+
+  const onSubmit = data =>{
+    console.log(data)
+    const payload = {
+      title: data.title === '' ? props.log.title : data.title,
+      bait: data.bait === '' ? props.log.bait : data.bait,
+      fish: data.fish === '' ? props.log.fish : data.fish,
+      location: data.location === '' ? props.log.location : data.location,
+      //Log: data.log === '' ? props.log.log : data.log,
+      // score: data.score === '' ? props.log.score : data.score
+      
+    } 
+    
+    axiosWithAuth().put(`/user/${userId}/logs/${props.log.id}`, payload)
+    .then(res=>{console.log(res)
+      window.location.reload(false);
+    })
+    .catch(err=>console.log(err))
+    //setRefresh(!refresh)
+
+    
+     
+    
+>>>>>>> 391738ef9a034a853d5bf824a59cb1d42656970b
   }
 
   return (
     <Card>
       <CardBody>
         <CardTitle>{props.log.title}</CardTitle>
-        <CardText>Type of Bait Used:{props.log.bait}</CardText>
-        <CardText>Type of Fish Caught:{props.log.fish}</CardText>
-        <CardText>Location:{props.log.location}</CardText>
-        <CardText>Rating:{props.log.log}</CardText>
-        <Button onClick={handleRemove}>Remove Log</Button>
+        <CardText>Type of Bait Used: {props.log.bait}</CardText>
+        <CardText>Type of Fish Caught: {props.log.fish}</CardText>
+        <CardText>Location: {props.log.location}</CardText>
+        <CardText>Log: {props.log.log}</CardText>
+        <CardText>Score: {props.log.score}</CardText>
+        <Button onClick={handleRemove} color="danger">Remove Log</Button>
+        &nbsp;&nbsp;
         <Button color="success" onClick={toggle}>
           Edit Log
         </Button>

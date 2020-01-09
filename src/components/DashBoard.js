@@ -5,10 +5,10 @@ import axios from "axios"
 import { axiosWithAuth } from "../utils/axiosWithAuth"
 import LogList from "./LogList.js"
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap"
-
+import { UserContext } from "../contexts/userContext"
 export default function DashBoard(props) {
   const [feed, setFeed] = useState([])
-
+  const userName = localStorage.getItem("userName")
   const apiName = "https://fish-friends-2020.herokuapp.com/api/logs/"
 
   const { register, handleSubmit, errors } = useForm()
@@ -19,7 +19,10 @@ export default function DashBoard(props) {
     data = { ...data, userID: id }
     axiosWithAuth()
       .post(`/user/${id && id}/logs/`, data)
-      .then(res => console.log(res))
+      .then(res => {
+        setRefresh(!refresh)
+        console.log(res)
+      })
       .catch(err => console.log(err))
   }
 
@@ -28,6 +31,8 @@ export default function DashBoard(props) {
   const [modal, setModal] = useState(false)
 
   const toggle = () => setModal(!modal)
+
+  const [refresh, setRefresh] = useState(false)
 
   useEffect(() => {
     axios
@@ -39,6 +44,7 @@ export default function DashBoard(props) {
       .catch(error => {
         console.log(error)
       })
+<<<<<<< HEAD
   }, [])
 
   function addLogToFeed(e) {
@@ -48,10 +54,15 @@ export default function DashBoard(props) {
     //.finally(() => toggle())
     toggle()
   }
+=======
+  }, [modal])
+>>>>>>> 391738ef9a034a853d5bf824a59cb1d42656970b
 
   return (
     <div className="feed">
-      <NavBar />
+      <UserContext.Provider value={userName}>
+        <NavBar />
+      </UserContext.Provider>
       <div className="mode">
         <Button color="success" onClick={toggle}>
           Add Log
@@ -90,9 +101,7 @@ export default function DashBoard(props) {
                 <input name="log" ref={register({ required: true })} />
               </label>
               <br />
-              <button type="submit" onClick={e => addLogToFeed(e)}>
-                Add Log
-              </button>
+              <button type="submit">Add Log</button>
             </form>
           </ModalBody>
           <ModalFooter>

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import { Link } from "react-router-dom"
 import {
   Collapse,
@@ -13,11 +13,14 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap"
+import {UserContext} from "../contexts/userContext"
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggle = () => setIsOpen(!isOpen)
+
+const username = useContext(UserContext)
 
   return (
     <div>
@@ -31,7 +34,7 @@ export default function NavBar() {
           <NavLink className="text-white" href="/dashboard/">
             Home
           </NavLink>
-
+          <p>current user:{username}</p>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="mr-auto" navbar>

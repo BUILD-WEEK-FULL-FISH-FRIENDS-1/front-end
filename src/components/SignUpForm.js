@@ -12,7 +12,7 @@ export default function SignUpForm(props) {
 
     axiosWithAuth()
       .post("/auth/register/", data)
-      .then(res => console.log(`NEW USER POST RESPONSE ${res}`))
+      .then(res =>console.log(`NEW USER POST RESPONSE ${res}`))
       .catch(err => console.log(err))
     props.history.push("")
   }
