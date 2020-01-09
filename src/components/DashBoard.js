@@ -39,7 +39,7 @@ export default function DashBoard(props) {
       .catch(error => {
         console.log(error)
       })
-  }, [toggle])
+  }, [])
 
   function addLogToFeed(e) {
     e.preventDefault()
